@@ -1,6 +1,7 @@
-import express, { Application } from "express";
 import cors from "cors";
+import express, { Application } from "express";
 import morgan from "morgan";
+import path from "path";
 import { AppDataSource } from "./src/data-source";
 
 class Server {
@@ -17,6 +18,10 @@ class Server {
     this.dbConnection();
     this.middlewares();
     this.routes();
+
+    this.app.get("/*", (req, res) => {
+      res.sendFile(path.join(__dirname, "../server", "public", "index.html"));
+    });
   }
 
   async dbConnection() {
@@ -34,7 +39,7 @@ class Server {
     this.app.use(morgan("dev"));
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
-    this.app.use(express.static("public"));
+    this.app.use(express.static(path.join(__dirname, "../server", "public")));
   }
 
   routes() {

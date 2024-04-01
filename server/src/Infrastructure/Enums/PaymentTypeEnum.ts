@@ -3,6 +3,6 @@ enum PaymentTypeEnum {
   CHECK = "check",
   CREDIT_CARD = "creditCard",
   WALLET = "wallet",
-  TRANSFER = "transfer",
+  TRANSFER = "bankTransfer",
 }
 export default PaymentTypeEnum;

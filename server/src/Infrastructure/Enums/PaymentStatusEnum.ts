@@ -3,7 +3,8 @@ enum PaymentStatusEnum {
   PLANNING = "planning",
   WAITING_APROVAL = "waitingAproval",
   IN_PROCESS = "inProcess",
-  FINISHED = "finished",
   EXPIRED = "expired",
+  SUCCESS = "success",
+  ERROR = "error",
 }
 export default PaymentStatusEnum;

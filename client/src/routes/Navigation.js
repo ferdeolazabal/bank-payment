@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Logo, PayIcon, PieIcon, UserIcon } from "../components/UiElements";
 import { Routes, Route, NavLink, Navigate } from "react-router-dom";
 import Users from "../components/Users";
+import Payments from "../components/Payments";
 
 export const Navigation = () => {
   return (
@@ -53,7 +54,7 @@ export const Navigation = () => {
         </div>
 
         <Routes>
-          <Route path="payments" element={<h1>Payments Page</h1>} />
+          <Route path="payments" element={<Payments />} />
           <Route path="users" element={<Users />} />
           <Route path="/home" element={<h1>Home Page</h1>} />
           <Route path="/*" element={<Navigate to="/home" replace />} />

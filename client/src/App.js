@@ -1,11 +1,11 @@
 import React from "react";
-import { Navigation } from "./routes/Navigation";
+import Layaout from "./components/Layaout";
 
 const App = () => {
   return (
-    <>
-      <Navigation />
-    </>
+    <div>
+      <Layaout />
+    </div>
   );
 };
 

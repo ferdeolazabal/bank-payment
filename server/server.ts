@@ -2,13 +2,17 @@ import cors from "cors";
 import express, { Application } from "express";
 import morgan from "morgan";
 import path from "path";
+
 import { AppDataSource } from "./src/data-source";
+import paymentsRoutes from "./src/routes/payments";
+import usersRoutes from "./src/routes/users";
 
 class Server {
   private app: Application;
   private port: string;
   private apiPaths = {
-    Payments: "/api/payments",
+    payments: "/api/payments",
+    users: "/api/users",
   };
 
   constructor() {
@@ -43,7 +47,8 @@ class Server {
   }
 
   routes() {
-    this.app.use(this.apiPaths.Payments, require("./src/routes/payments"));
+    this.app.use(this.apiPaths.payments, paymentsRoutes);
+    this.app.use(this.apiPaths.users, usersRoutes);
   }
 
   listen() {

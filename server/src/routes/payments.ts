@@ -1,5 +1,8 @@
 import { Router } from "express";
+import { getPayments } from "../controllers/payments";
 
-const router = Router();
+const paymentsRoutes = Router();
 
-module.exports = router;
+paymentsRoutes.get("/", getPayments);
+
+export default paymentsRoutes;

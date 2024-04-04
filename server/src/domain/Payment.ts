@@ -15,6 +15,7 @@ class Payment implements IPaymentDomain {
   status: PaymentStatusEnum;
 
   user: IUserDomain;
+  receiver: string;
 
   createdAt: Date;
   updatedAt: Date;
@@ -43,6 +44,10 @@ class Payment implements IPaymentDomain {
     return this.user;
   }
 
+  getReceiver(): string {
+    return this.receiver;
+  }
+
   getCreatedAt(): Date {
     return this.createdAt;
   }
@@ -56,6 +61,7 @@ class Payment implements IPaymentDomain {
     this.type = values.type ?? this.type;
     this.status = values.status ?? this.status;
     this.user = values.user ?? this.user;
+    this.receiver = values.receiver ?? this.receiver;
     this.createdAt = values.createdAt ?? this.createdAt;
     this.updatedAt = values.updatedAt ?? this.updatedAt;
   }

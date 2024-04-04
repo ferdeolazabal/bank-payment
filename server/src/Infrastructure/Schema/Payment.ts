@@ -20,11 +20,15 @@ const PaymentsSchema = new EntitySchema<PaymentORMEntity>({
     type: {
       type: "enum",
       enum: PaymentTypeEnum,
-      nullable: true,
+      nullable: false,
     },
     status: {
       type: "enum",
       enum: PaymentStatusEnum,
+      nullable: false,
+    },
+    receiver: {
+      type: String,
       nullable: true,
     },
     createdAt: {

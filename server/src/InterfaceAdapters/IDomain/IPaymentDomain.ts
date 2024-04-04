@@ -10,6 +10,7 @@ export default interface IPaymentDomain {
   getStatus(): PaymentStatusEnum;
 
   getUser(): IUserDomain;
+  getReceiver(): string;
 
   getCreatedAt(): Date;
   getUpdatedAt(): Date;

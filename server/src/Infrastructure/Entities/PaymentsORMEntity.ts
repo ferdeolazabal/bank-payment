@@ -11,6 +11,7 @@ export default class PaymentORMEntity {
   status: PaymentStatusEnum;
 
   user: UserORMEntity;
+  receiver: string;
 
   createdAt: Date;
   updatedAt: Date;
@@ -28,6 +29,7 @@ export default class PaymentORMEntity {
     payment.amount = values.getAmount();
     payment.type = values.getPaymentType();
     payment.status = values.getStatus();
+    payment.receiver = values.getReceiver();
     payment.user = user ? UserORMEntity.fromDomain(user) : null;
 
     payment.createdAt = values.getCreatedAt();

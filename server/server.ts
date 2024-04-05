@@ -6,13 +6,15 @@ import path from "path";
 import { AppDataSource } from "./src/data-source";
 import paymentsRoutes from "./src/routes/payments";
 import usersRoutes from "./src/routes/users";
+import authRoutes from "./src/routes/auth";
 
 class Server {
   private app: Application;
   private port: string;
   private apiPaths = {
-    payments: "/api/payments",
+    auth: "/api/auth",
     users: "/api/users",
+    payments: "/api/payments",
   };
 
   constructor() {
@@ -47,8 +49,9 @@ class Server {
   }
 
   routes() {
-    this.app.use(this.apiPaths.payments, paymentsRoutes);
+    this.app.use(this.apiPaths.auth, authRoutes);
     this.app.use(this.apiPaths.users, usersRoutes);
+    this.app.use(this.apiPaths.payments, paymentsRoutes);
   }
 
   listen() {

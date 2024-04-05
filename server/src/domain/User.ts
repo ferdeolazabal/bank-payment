@@ -9,7 +9,6 @@ class User implements IUserDomain {
   firstName: string;
   lastName: string;
   email: string;
-  phoneMobile: string;
   password: string;
   enable: boolean;
   isSuperAdmin: boolean;
@@ -33,12 +32,12 @@ class User implements IUserDomain {
     return this.lastName;
   }
 
-  getEmail(): string {
-    return this.email;
+  getFullName(): string {
+    return this.firstName + " " + this.lastName;
   }
 
-  getPhoneMobile(): string {
-    return this.phoneMobile;
+  getEmail(): string {
+    return this.email;
   }
 
   getPassword(): string {
@@ -65,7 +64,6 @@ class User implements IUserDomain {
     this.firstName = values.firstName ?? this.firstName;
     this.lastName = values.lastName ?? this.lastName;
     this.email = values.email ?? this.email;
-    this.phoneMobile = values.phoneMobile ?? this.phoneMobile;
     this.password = values.password ?? this.password;
     this.enable = values.enable ?? this.enable;
     this.isSuperAdmin = values.isSuperAdmin ?? this.isSuperAdmin;

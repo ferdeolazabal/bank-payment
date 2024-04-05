@@ -6,7 +6,6 @@ export default class UserORMEntity {
   firstName: string;
   lastName: string;
   email: string;
-  phoneMobile: string;
   password: string;
   enable: boolean;
   isSuperAdmin: boolean;
@@ -22,7 +21,6 @@ export default class UserORMEntity {
     user.firstName = values.getFirstName();
     user.lastName = values.getLastName();
     user.email = values.getEmail();
-    user.phoneMobile = values.getPhoneMobile();
     user.password = values.getPassword();
     user.enable = values.getEnable();
     user.isSuperAdmin = values.getIsSuperAdmin();

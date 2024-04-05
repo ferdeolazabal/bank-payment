@@ -21,10 +21,6 @@ const PaymentsSchema = new EntitySchema<UserORMEntity>({
       type: String,
       unique: true,
     },
-    phoneMobile: {
-      type: String,
-      nullable: true,
-    },
     password: {
       type: String,
     },

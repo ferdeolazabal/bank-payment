@@ -1,11 +1,11 @@
 import { EntitySchema } from "typeorm";
-import PaymentORMEntity from "../Entities/PaymentsORMEntity";
 import PaymentTypeEnum from "../Enums/PaymentTypeEnum";
 import PaymentStatusEnum from "../Enums/PaymentStatusEnum";
+import Payment from "../../domain/Payment";
 
-const PaymentsSchema = new EntitySchema<PaymentORMEntity>({
+const PaymentsSchema = new EntitySchema<Payment>({
   name: "Payment",
-  target: PaymentORMEntity,
+  target: Payment,
   tableName: "payment",
   columns: {
     _id: {
@@ -45,7 +45,7 @@ const PaymentsSchema = new EntitySchema<PaymentORMEntity>({
   relations: {
     user: {
       type: "many-to-one",
-      target: "UserORMEntity",
+      target: "User",
       eager: false,
       joinColumn: {
         name: "userId",

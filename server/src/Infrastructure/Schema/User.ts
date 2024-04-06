@@ -1,9 +1,9 @@
 import { EntitySchema } from "typeorm";
-import UserORMEntity from "../Entities/UserORMEntity";
+import User from "../../domain/User";
 
-const PaymentsSchema = new EntitySchema<UserORMEntity>({
+const PaymentsSchema = new EntitySchema<User>({
   name: "User",
-  target: UserORMEntity,
+  target: User,
   tableName: "user",
   columns: {
     _id: {

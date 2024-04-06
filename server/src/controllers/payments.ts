@@ -1,11 +1,10 @@
 import { AppDataSource } from "../data-source";
 import { Response, Request } from "express";
 import Payment from "../domain/Payment";
-import PaymentORMEntity from "../Infrastructure/Entities/PaymentsORMEntity";
 
 const getPayments = async (req: Request, res: Response) => {
   try {
-    const savedPayments = await AppDataSource.manager.find(PaymentORMEntity, {
+    const savedPayments = await AppDataSource.manager.find(Payment, {
       relations: ["user"],
     });
 
@@ -28,7 +27,7 @@ const getPayment = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    const savedPayment = await AppDataSource.manager.findOne(PaymentORMEntity, {
+    const savedPayment = await AppDataSource.manager.findOne(Payment, {
       relations: ["user"],
       where: { _id: id },
     });

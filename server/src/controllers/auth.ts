@@ -4,13 +4,12 @@ import { AppDataSource } from "../data-source";
 import { generateJWT } from "../helpers/jwt";
 
 import User from "../domain/User";
-import UserORMEntity from "../Infrastructure/Entities/UserORMEntity";
 
 const userLogin = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   try {
-    const findUser = await AppDataSource.manager.findOne(UserORMEntity, {
+    const findUser = await AppDataSource.manager.findOne(User, {
       where: { email },
     });
 

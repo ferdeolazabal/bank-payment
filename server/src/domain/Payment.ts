@@ -1,14 +1,12 @@
 import { v4 as uuidv4 } from "uuid";
 import { SetValuesPayload } from "../TsHelper";
 import IPaymentDomain from "../InterfaceAdapters/IDomain/IPaymentDomain";
-import PaymentORMEntity from "../Infrastructure/Entities/PaymentsORMEntity";
 import PaymentStatusEnum from "../Infrastructure/Enums/PaymentStatusEnum";
 import PaymentTypeEnum from "../Infrastructure/Enums/PaymentTypeEnum";
 import IUserDomain from "../InterfaceAdapters/IDomain/IUserDomain";
-import User from "./User";
 
 class Payment implements IPaymentDomain {
-  private _id: string;
+  _id: string;
 
   amount: number;
   type: PaymentTypeEnum;
@@ -67,7 +65,7 @@ class Payment implements IPaymentDomain {
   }
 
   static fromValues(
-    values: PaymentORMEntity,
+    values: Payment,
     config: { transformUser?: boolean }
   ): Payment {
     const { transformUser = true } = config;
@@ -75,8 +73,7 @@ class Payment implements IPaymentDomain {
     const payment = new Payment();
     const { _id, user, ...rest } = values;
 
-    const transformedUser =
-      transformUser && user ? User.fromValues(user) : null;
+    const transformedUser = transformUser && user ? user : null;
 
     payment._id = _id;
     payment.setValues({

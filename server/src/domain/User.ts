@@ -1,10 +1,9 @@
 import { v4 as uuidv4 } from "uuid";
 import { SetValuesPayload } from "../TsHelper";
 import IUserDomain from "../InterfaceAdapters/IDomain/IUserDomain";
-import UserORMEntity from "../Infrastructure/Entities/UserORMEntity";
 
 class User implements IUserDomain {
-  private _id: string;
+  _id: string;
 
   firstName: string;
   lastName: string;
@@ -72,7 +71,7 @@ class User implements IUserDomain {
     this.updatedAt = values.updatedAt ?? this.updatedAt;
   }
 
-  static fromValues(values: UserORMEntity): User {
+  static fromValues(values: User): User {
     const user = new User();
     const { _id, ...rest } = values;
 

@@ -52,10 +52,13 @@ const postPayment = async (req: Request, res: Response) => {
   try {
     const payment = new Payment();
 
-    payment.amount = body.amount;
-    payment.type = body.type;
-    payment.user = body.user;
-    payment.receiver = body.receiver;
+    payment.setValues({
+      amount: body.amount,
+      type: body.type,
+      user: body.user,
+      status: body.status,
+      receiver: body.receiver,
+    });
 
     const savedPayment = await AppDataSource.manager.save(payment);
 

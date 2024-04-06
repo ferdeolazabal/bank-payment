@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { check } from "express-validator";
 import { fieldValidator } from "../middlewares/fieldValidator";
+
 import { getUsers, getUser, postUser } from "../controllers/users";
 
 const usersRoutes = Router();

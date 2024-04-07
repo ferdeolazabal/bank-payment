@@ -64,20 +64,12 @@ class Payment implements IPaymentDomain {
     this.updatedAt = values.updatedAt ?? this.updatedAt;
   }
 
-  static fromValues(
-    values: Payment,
-    config: { transformUser?: boolean }
-  ): Payment {
-    const { transformUser = true } = config;
-
+  static fromValues(values: Payment): Payment {
     const payment = new Payment();
-    const { _id, user, ...rest } = values;
-
-    const transformedUser = transformUser && user ? user : null;
+    const { _id, ...rest } = values;
 
     payment._id = _id;
     payment.setValues({
-      user: transformedUser,
       ...rest,
     });
     return payment;

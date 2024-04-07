@@ -1,8 +1,9 @@
 import { Router } from "express";
 import { check } from "express-validator";
 import { fieldValidator } from "../middlewares/fieldValidator";
+import { jwtValidator } from "../middlewares/jwtValidator";
 
-import { userLogin } from "../controllers/auth";
+import { revalidateToken, userLogin } from "../controllers/auth";
 
 const authRoutes = Router();
 
@@ -17,5 +18,7 @@ authRoutes.post(
   ],
   userLogin
 );
+
+authRoutes.get("/renew", jwtValidator, revalidateToken);
 
 export default authRoutes;

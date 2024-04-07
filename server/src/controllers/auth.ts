@@ -48,31 +48,29 @@ const userLogin = async (req: Request, res: Response) => {
   }
 };
 
-// const revalidateToken = async (req: Request, res: Response) => {
-//   const { id, name } = req.body;
+const revalidateToken = async (req: Request, res: Response) => {
+  const { id, name } = req.body;
 
-//   try {
-//     const token = await generateJWT(id, name);
+  try {
+    const token = await generateJWT(id, name);
 
-//     const findUser = await AppDataSource.manager.findOne(UserORMEntity, {
-//       where: { _id: id },
-//     });
+    const user = await AppDataSource.manager.findOne(User, {
+      where: { _id: id },
+    });
 
-//     const user = User.fromValues(findUser);
+    res.json({
+      ok: true,
+      token,
+      id,
+      user,
+    });
+  } catch (e) {
+    console.log("Error al revalidar el token", { e });
+    res.status(500).json({
+      ok: false,
+      msg: "Por favor hable con el administrador",
+    });
+  }
+};
 
-//     res.json({
-//       ok: true,
-//       token,
-//       id,
-//       user,
-//     });
-//   } catch (e) {
-//     console.log("Error al revalidar el token", { e });
-//     res.status(500).json({
-//       ok: false,
-//       msg: "Por favor hable con el administrador",
-//     });
-//   }
-// };
-
-export { userLogin };
+export { userLogin, revalidateToken };

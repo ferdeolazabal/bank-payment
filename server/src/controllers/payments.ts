@@ -8,7 +8,7 @@ const getPayments = async (req: Request, res: Response) => {
       relations: ["user"],
     });
 
-    const payments = savedPayments.map((pay) => Payment.fromValues(pay, {}));
+    const payments = savedPayments.map((pay) => Payment.fromValues(pay));
 
     res.json({
       ok: true,
@@ -31,7 +31,7 @@ const getPayment = async (req: Request, res: Response) => {
       relations: ["user"],
       where: { _id: id },
     });
-    const payment = Payment.fromValues(savedPayment, {});
+    const payment = Payment.fromValues(savedPayment);
 
     res.json({
       ok: true,

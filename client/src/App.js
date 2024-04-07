@@ -1,11 +1,14 @@
 import React from "react";
-import Layaout from "./components/Layaout";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+
+import Layout from "./components/Layout";
 
 const App = () => {
   return (
-    <div>
-      <Layaout />
-    </div>
+    <Provider store={store}>
+      <Layout />
+    </Provider>
   );
 };
 

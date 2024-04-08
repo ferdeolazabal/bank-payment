@@ -1,14 +1,8 @@
-import { createStore, compose, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-import { rootReducer } from "./reducers/rootReducer";
+import { configureStore } from "@reduxjs/toolkit";
 
-const composeEnhancers =
-  (typeof window !== "undefined" &&
-    // @ts-ignore
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
-  compose;
+import { usersReducer } from "./reducers/usersReducers";
+import { paymentsReducer } from "./reducers/paymerntsReducer";
 
-export const store = createStore(
-  rootReducer,
-  composeEnhancers(applyMiddleware(thunk))
-);
+export const store = configureStore({
+  reducer: { users: usersReducer, payments: paymentsReducer },
+});

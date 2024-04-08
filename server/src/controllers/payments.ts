@@ -61,10 +61,11 @@ const postPayment = async (req: Request, res: Response) => {
     });
 
     const savedPayment = await AppDataSource.manager.save(payment);
+    const newPayment = Payment.fromValues(savedPayment);
 
     res.json({
       ok: true,
-      savedPayment,
+      payment: newPayment,
     });
   } catch (e) {
     console.log({ e });

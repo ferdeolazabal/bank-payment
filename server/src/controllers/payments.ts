@@ -53,7 +53,7 @@ const postPayment = async (req: Request, res: Response) => {
     const payment = new Payment();
 
     payment.setValues({
-      amount: body.amount,
+      amount: +body.amount,
       type: body.type,
       user: body.user,
       status: body.status,

@@ -2,4 +2,6 @@ export const types = {
   getUsers: "[user] Get Users",
   getPayments: "[payments] Get Payments",
   postPayments: "[payments] Post Payments",
+  authLogin: "[auth] Start Login",
+  authNewUserLogin: "[auth] Start New User Login",
 };

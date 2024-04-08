@@ -1,5 +1,4 @@
 // @ts-nocheck
-import { fetchConToken } from "../../helpers/fetch";
 import { types } from "../types/types";
 
 const baseUrl = process.env.REACT_APP_API_URL;
@@ -20,8 +19,6 @@ const getPayments = (payload) => ({
 });
 
 export const httpPostPayment = (body) => async (dispatch) => {
-  console.log("httpPostPayment", body);
-
   try {
     const url = `${baseUrl}/payments/new`;
 

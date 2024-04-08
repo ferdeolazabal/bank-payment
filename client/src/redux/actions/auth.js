@@ -17,6 +17,7 @@ export const startLogin = (email, password) => {
         login({
           uid: body.uid,
           name: body.name,
+          user: body.user,
         })
       );
     } else {
@@ -25,55 +26,26 @@ export const startLogin = (email, password) => {
   };
 };
 
-export const startRegister = (email, password, name) => {
+export const startRegister = (email, password, firstName, lastName) => {
   return async (dispatch) => {
     const resp = await fetchSinToken(
-      "auth/new",
-      { email, password, name },
+      "auth/newUser",
+      { email, password, firstName, lastName },
       "POST"
     );
     const body = await resp.json();
-
+    console.log("body", body);
     if (body.ok) {
       localStorage.setItem("token", body.token);
       // @ts-ignore
       localStorage.setItem("token-init-date", new Date().getTime());
 
-      dispatch(
-        login({
-          uid: body.uid,
-          name: body.name,
-        })
-      );
+      dispatch(login({ user: body.user }));
     } else {
       Swal.fire("Error", body.msg, "error");
     }
   };
 };
-
-export const startChecking = () => {
-  return async (dispatch) => {
-    const resp = await fetchConToken("auth/renew");
-    const body = await resp.json();
-
-    if (body.ok) {
-      localStorage.setItem("token", body.token);
-      // @ts-ignore
-      localStorage.setItem("token-init-date", new Date().getTime());
-
-      dispatch(
-        login({
-          uid: body.uid,
-          name: body.name,
-        })
-      );
-    } else {
-      dispatch(checkingFinish());
-    }
-  };
-};
-
-const checkingFinish = () => ({ type: types.authCheckingFinish });
 
 const login = (user) => ({
   type: types.authLogin,
@@ -83,7 +55,6 @@ const login = (user) => ({
 export const startLogout = () => {
   return (dispatch) => {
     localStorage.clear();
-    // dispatch( eventLogout() );
     dispatch(logout());
   };
 };

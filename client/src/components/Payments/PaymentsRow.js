@@ -3,7 +3,7 @@ import { statusEnum, typeEnum } from "../../helpers/enums";
 import { emptyImage } from "../../helpers/fetch";
 
 const PaymentsRow = ({ payment }) => {
-  const { amount, status, type, user, receiver } = payment;
+  const { amount, status, type, user, receiver, createdAt } = payment;
   const { firstName, lastName, email } = user;
   const translatedType = typeEnum[type];
   const translatedStatus = statusEnum[status];
@@ -27,6 +27,12 @@ const PaymentsRow = ({ payment }) => {
 
       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
         <div className="text-sm leading-5 text-gray-900">{translatedType}</div>
+      </td>
+
+      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+        <div className="text-sm leading-5 text-gray-900">
+          {new Date(createdAt).toLocaleDateString()}
+        </div>
       </td>
 
       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center">

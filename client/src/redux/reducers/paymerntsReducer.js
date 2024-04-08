@@ -12,6 +12,12 @@ export const paymentsReducer = (state = initialState, action) => {
         payments: action.payload,
       };
 
+    case types.postPayments:
+      return {
+        ...state,
+        payments: [action.payload, ...state.payments],
+      };
+
     default:
       return state;
   }

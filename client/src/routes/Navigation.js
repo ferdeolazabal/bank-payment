@@ -1,9 +1,7 @@
 // @ts-nocheck
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, NavLink, Route, Redirect } from "react-router-dom";
 import { Logo, PayIcon, PieIcon, UserIcon } from "../components/UiElements";
-import { Routes, Route, NavLink, Navigate } from "react-router-dom";
-
 import PaymentsScreen from "../components/Payments/PaymentsScreen";
 import UsersScreen from "../components/Users/UsersScreen";
 import LoginScreen from "../components/Login/LoginScreen";
@@ -11,7 +9,7 @@ import LoginScreen from "../components/Login/LoginScreen";
 const linkClass =
   "flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100";
 
-export const Navigation = () => {
+const Navigation = () => {
   return (
     <BrowserRouter>
       <div className="flex h-screen bg-gray-200 font-roboto">
@@ -26,16 +24,6 @@ export const Navigation = () => {
           </div>
 
           <nav className="mt-10">
-            {/* <NavLink to="/login" className={linkClass}>
-              <PieIcon />
-              <span className="mx-3">Login</span>
-            </NavLink> */}
-
-            <NavLink to="/home" className={linkClass}>
-              <PieIcon />
-              <span className="mx-3">Home</span>
-            </NavLink>
-
             <NavLink to="/payments" className={linkClass}>
               <PayIcon />
               <span className="mx-3">Pagos</span>
@@ -48,14 +36,15 @@ export const Navigation = () => {
           </nav>
         </div>
 
-        <Routes>
-          <Route path="payments" element={<PaymentsScreen />} />
-          <Route path="users" element={<UsersScreen />} />
-          {/* <Route path="login" element={<LoginScreen />} /> */}
-          <Route path="/home" element={<h1>Home</h1>} />
-          <Route path="/*" element={<Navigate to="/home" replace />} />
-        </Routes>
+        <div className="flex-1">
+          <Route path="/payments" component={PaymentsScreen} />
+          <Route path="/users" component={UsersScreen} />
+          <Route path="/login" component={LoginScreen} />
+          <Route path="/*" render={() => <Redirect to="/payments" />} />
+        </div>
       </div>
     </BrowserRouter>
   );
 };
+
+export default Navigation;

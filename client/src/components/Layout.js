@@ -2,9 +2,10 @@
 import React, { useEffect } from "react";
 import { httpGetPayments } from "../redux/actions/payments";
 import { httpGetUsers } from "../redux/actions/users";
-import { Navigation } from "../routes/Navigation";
 import { useDispatch } from "react-redux";
+
 import Header from "./Header";
+import Navigation from "../routes/Navigation";
 
 const Layout = () => {
   const dispatch = useDispatch();

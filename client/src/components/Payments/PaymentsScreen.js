@@ -29,6 +29,11 @@ const PaymentsScreen = () => {
               </tbody>
             </table>
           </div>
+          {paymentsToFilter.length === 0 && (
+            <h3 className="text-center mx-aut bg-white py-7">
+              No hay registros para mostrar !
+            </h3>
+          )}
         </div>
       </div>
     </div>

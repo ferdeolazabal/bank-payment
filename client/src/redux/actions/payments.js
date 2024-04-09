@@ -84,3 +84,21 @@ export const filterByPaymentAmount = (amount) => {
     });
   };
 };
+
+export const filterByPaymentReceiver = (email) => {
+  return async (dispatch) => {
+    dispatch({
+      type: types.filterPaymentsByReceiver,
+      payload: email,
+    });
+  };
+};
+
+export const filterByPaymentDate = (date) => {
+  return async (dispatch) => {
+    dispatch({
+      type: types.filterPaymentsByDate,
+      payload: date,
+    });
+  };
+};

@@ -12,4 +12,6 @@ export const types = {
   filterPaymentsByType: "[payments] Filter By Type",
   filterPaymentsByStatus: "[payments] Filter By Status",
   filterPaymentsByAmount: "[payments] Filter By Amount",
+  filterPaymentsByReceiver: "[payments] Filter By Receiver",
+  filterPaymentsByDate: "[payments] Filter By Date",
 };

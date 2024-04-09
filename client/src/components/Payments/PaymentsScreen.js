@@ -6,7 +6,9 @@ import { useSelector } from "react-redux";
 import PaymentModal from "../UiElements/PaymentModal";
 
 const PaymentsScreen = () => {
-  const payments = useSelector(({ payments }) => payments.payments);
+  const paymentsToFilter = useSelector(
+    ({ payments }) => payments.paymentsToFilter
+  );
 
   return (
     <div className="container px-6 py-8 mx-auto">
@@ -20,8 +22,8 @@ const PaymentsScreen = () => {
               <PaymentsHeader />
 
               <tbody className="bg-white">
-                {payments.length > 0 &&
-                  payments.map((payment) => (
+                {paymentsToFilter.length > 0 &&
+                  paymentsToFilter.map((payment) => (
                     <PaymentsRow key={payment._id} payment={payment} />
                   ))}
               </tbody>

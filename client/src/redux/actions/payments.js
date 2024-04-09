@@ -48,3 +48,12 @@ export const httpPostPayment = (body) => async (dispatch) => {
     return Promise.reject();
   }
 };
+
+export const filterByUser = (userId) => {
+  return async (dispatch) => {
+    dispatch({
+      type: types.filterPaymentsByUsers,
+      payload: userId,
+    });
+  };
+};

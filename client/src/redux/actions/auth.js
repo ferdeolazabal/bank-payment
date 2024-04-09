@@ -34,7 +34,7 @@ export const startRegister = (email, password, firstName, lastName) => {
       "POST"
     );
     const body = await resp.json();
-    console.log("body", body);
+
     if (body.ok) {
       localStorage.setItem("token", body.token);
       // @ts-ignore

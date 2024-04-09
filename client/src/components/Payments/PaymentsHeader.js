@@ -3,6 +3,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { statusEnum, typeEnum } from "../../helpers/enums";
 import {
+  filterByPaymentAmount,
   filterByPaymentStatus,
   filterByPaymentType,
   filterByUser,
@@ -15,10 +16,15 @@ const PaymentsHeader = () => {
   const dispatch = useDispatch();
 
   const payments = useSelector(({ payments }) => payments.payments) || [];
-  const users = payments.map((transaction) => transaction.user);
+  const users = payments.map((transaction) => transaction.user) || [];
+  const totalAmounts = payments.map((transaction) => transaction.amount) || [];
 
-  const uniqueUsers = Array.from(new Set(users.map((user) => user._id))).map(
-    (id) => users.find((user) => user._id === id)
+  const uniqueUsers = Array.from(new Set(users?.map((user) => user?._id)))?.map(
+    (id) => users?.find((user) => user?._id && user?._id === id)
+  );
+
+  const uniqueAmounts = totalAmounts?.filter(
+    (amount, index) => totalAmounts?.indexOf(amount) === index
   );
 
   const paymentTypeOptions = Object.entries(typeEnum);
@@ -39,24 +45,33 @@ const PaymentsHeader = () => {
     dispatch(filterByPaymentStatus(e.target.value));
   };
 
+  const handleFilterByPaymentAmount = (e) => {
+    e.preventDefault();
+    dispatch(filterByPaymentAmount(e.target.value));
+  };
+
   return (
     <thead>
       <tr>
         <th className={thStyle}>
-          Nomre de usuario
+          Nombre de usuario
           <select
             onChange={(e) => handleFilterByUser(e)}
-            className="flex flex-col"
+            className="flex flex-col border-gray-200 bg-gray-50 text-gray-500"
           >
             <option value="">Filtrar por usuario</option>
-            {uniqueUsers.map((user) => {
+            {uniqueUsers?.map((user) => {
               return (
-                <option key={user._id} value={user._id}>
-                  {user.firstName} {user.lastName}
+                <option
+                  key={user?._id}
+                  value={user?._id}
+                  className="border-gray-200 bg-gray-50 text-gray-500"
+                >
+                  {user && (user?.firstName || "")}&nbsp;
+                  {user && (user?.lastName || "")}
                 </option>
               );
             })}
-            <option value="">Deshacer Filtro</option>
           </select>
         </th>
 
@@ -64,7 +79,7 @@ const PaymentsHeader = () => {
           Forma de pago
           <select
             onChange={(e) => handleFilterByPaymentType(e)}
-            className="flex flex-col"
+            className="border-gray-200 bg-gray-50 text-gray-500"
           >
             <option value="">Filtrar por forma de pago</option>
             {paymentTypeOptions.map(([key, value]) => (
@@ -72,7 +87,6 @@ const PaymentsHeader = () => {
                 {value}
               </option>
             ))}
-            <option value="">Deshacer Filtro</option>
           </select>
         </th>
 
@@ -82,19 +96,49 @@ const PaymentsHeader = () => {
           Estado
           <select
             onChange={(e) => handleFilterByPaymentStatus(e)}
-            className="flex flex-col"
+            className="flex flex-col border-gray-200 bg-gray-50 text-gray-500"
           >
-            <option value="">Filtrar por Estado</option>
-            {paymentStatusOptions.map(([key, value]) => (
-              <option key={key} value={key}>
+            <option
+              value=""
+              className="border-gray-200 bg-gray-50 text-gray-500"
+            >
+              Filtrar por Estado
+            </option>
+            {paymentStatusOptions?.map(([key, value]) => (
+              <option
+                key={key}
+                value={key}
+                className="border-gray-200 bg-gray-50 text-gray-500"
+              >
                 {value}
               </option>
             ))}
-            <option value="">Deshacer Filtro</option>
           </select>
         </th>
 
-        <th className={thStyle}>Monto</th>
+        <th className={thStyle}>
+          Monto
+          <select
+            onChange={(e) => handleFilterByPaymentAmount(e)}
+            className="flex flex-col border-gray-200 bg-gray-50 text-gray-500"
+          >
+            <option
+              value=""
+              className="border-gray-200 bg-gray-50 text-gray-500"
+            >
+              Filtrar por Estado
+            </option>
+            {uniqueAmounts.map((value) => (
+              <option
+                key={value}
+                value={value}
+                className="border-gray-200 bg-gray-50 text-gray-500"
+              >
+                {value}
+              </option>
+            ))}
+          </select>
+        </th>
 
         <th className={thStyle}>Destinatario</th>
       </tr>

@@ -66,11 +66,21 @@ export const filterByPaymentType = (type) => {
     });
   };
 };
+
 export const filterByPaymentStatus = (status) => {
   return async (dispatch) => {
     dispatch({
       type: types.filterPaymentsByStatus,
       payload: status,
+    });
+  };
+};
+
+export const filterByPaymentAmount = (amount) => {
+  return async (dispatch) => {
+    dispatch({
+      type: types.filterPaymentsByAmount,
+      payload: amount,
     });
   };
 };

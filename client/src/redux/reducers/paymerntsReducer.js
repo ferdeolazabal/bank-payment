@@ -6,55 +6,64 @@ const initialState = {
   paymentsToFilter: [],
 };
 
-export const paymentsReducer = (state = initialState, action) => {
-  switch (action.type) {
+export const paymentsReducer = (state = initialState, { type, payload }) => {
+  switch (type) {
     case types.getPayments:
       return {
         ...state,
-        payments: action.payload,
-        paymentsToFilter: action.payload,
+        payments: payload,
+        paymentsToFilter: payload,
       };
 
     case types.postPayments:
       return {
         ...state,
-        payments: [action.payload, ...state.payments],
-        paymentsToFilter: [action.payload, ...state.paymentsToFilter],
+        payments: [payload, ...state.payments],
+        paymentsToFilter: [payload, ...state.paymentsToFilter],
       };
 
     case types.filterPaymentsByUsers:
-      let filteredPayments;
-      action.payload === ""
-        ? (filteredPayments = state.payments)
-        : (filteredPayments = state.payments.filter(
-            (payment) => payment.user._id === action.payload
-          ));
+      let filterPay;
+      payload === ""
+        ? (filterPay = state.payments)
+        : (filterPay = state.payments.filter((p) => p.user._id === payload));
 
       return {
         ...state,
-        paymentsToFilter: filteredPayments,
+        paymentsToFilter: filterPay,
       };
 
     case types.filterPaymentsByType:
-      let filter;
-      action.payload === ""
-        ? (filter = state.payments)
-        : (filter = state.payments.filter((p) => p.type === action.payload));
+      let filterType;
+      payload === ""
+        ? (filterType = state.payments)
+        : (filterType = state.payments.filter((p) => p.type === payload));
 
       return {
         ...state,
-        paymentsToFilter: filter,
+        paymentsToFilter: filterType,
       };
 
     case types.filterPaymentsByStatus:
       let fStatus;
-      action.payload === ""
+      payload === ""
         ? (fStatus = state.payments)
-        : (fStatus = state.payments.filter((p) => p.status === action.payload));
+        : (fStatus = state.payments.filter((p) => p.status === payload));
 
       return {
         ...state,
         paymentsToFilter: fStatus,
+      };
+
+    case types.filterPaymentsByAmount:
+      let filterAmount;
+      payload === ""
+        ? (filterAmount = state.payments)
+        : (filterAmount = state.payments.filter((p) => p?.amount === +payload));
+
+      return {
+        ...state,
+        paymentsToFilter: filterAmount,
       };
 
     default:

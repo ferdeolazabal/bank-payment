@@ -9,7 +9,7 @@ import Layout from "../components/Layout";
 import LoginScreen from "../components/Login/LoginScreen";
 
 const AppRouter = () => {
-  const { uid } = useSelector((state) => state.auth);
+  const uid = useSelector((state) => state.auth.uid);
 
   return (
     <Router>
@@ -26,7 +26,8 @@ const AppRouter = () => {
             component={Layout}
             isAuthenticated={!!uid}
           />
-          <Redirect to="/login" />
+
+          <Redirect to={uid ? "/payments" : "/login"} />
         </Switch>
       </div>
     </Router>

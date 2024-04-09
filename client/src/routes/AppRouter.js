@@ -9,9 +9,8 @@ import Layout from "../components/Layout";
 import LoginScreen from "../components/Login/LoginScreen";
 
 const AppRouter = () => {
-  // @ts-ignore
-  const user = useSelector(({ auth }) => auth.user);
-  console.log("user", user);
+  const token = localStorage.getItem("token") || null;
+
   return (
     <Router>
       <div>
@@ -19,15 +18,15 @@ const AppRouter = () => {
           <PublicRoute
             path="/login"
             component={LoginScreen}
-            isAuthenticated={!!user?._id}
+            isAuthenticated={!!token}
           />
 
           <PrivateRoute
-            path="/payment"
+            path="/payments"
             component={Layout}
-            isAuthenticated={!!user?._id}
+            isAuthenticated={!!token}
           />
-          <Redirect to="/payment" />
+          <Redirect to="/login" />
         </Switch>
       </div>
     </Router>

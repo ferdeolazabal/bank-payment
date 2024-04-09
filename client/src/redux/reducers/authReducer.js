@@ -14,7 +14,6 @@ export const authReducer = (state = initialState, action) => {
         ...action.payload,
       };
     case types.authLogout:
-      console.log("lalal");
       return {
         uid: null,
         name: null,

@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from "react";
 import { BrowserRouter, NavLink, Route, Redirect } from "react-router-dom";
-import { Logo, PayIcon, PieIcon, UserIcon } from "../components/UiElements";
+import { Logo, PayIcon, UserIcon } from "../components/UiElements";
 import PaymentsScreen from "../components/Payments/PaymentsScreen";
 import UsersScreen from "../components/Users/UsersScreen";
 import LoginScreen from "../components/Login/LoginScreen";

@@ -3,8 +3,8 @@ import { statusEnum, typeEnum } from "../../helpers/enums";
 import { emptyImage } from "../../helpers/fetch";
 
 const PaymentsRow = ({ payment }) => {
-  const { amount, status, type, user, receiver, createdAt } = payment;
-  const { firstName, lastName, email } = user;
+  const { amount, status, type, user, receiver, createdAt } = payment || {};
+  const { firstName, lastName, email } = user || {};
   const translatedType = typeEnum[type];
   const translatedStatus = statusEnum[status];
 

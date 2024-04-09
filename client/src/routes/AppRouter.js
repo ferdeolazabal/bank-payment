@@ -9,7 +9,7 @@ import Layout from "../components/Layout";
 import LoginScreen from "../components/Login/LoginScreen";
 
 const AppRouter = () => {
-  const token = localStorage.getItem("token") || null;
+  const { uid } = useSelector((state) => state.auth);
 
   return (
     <Router>
@@ -18,13 +18,13 @@ const AppRouter = () => {
           <PublicRoute
             path="/login"
             component={LoginScreen}
-            isAuthenticated={!!token}
+            isAuthenticated={!!uid}
           />
 
           <PrivateRoute
             path="/payments"
             component={Layout}
-            isAuthenticated={!!token}
+            isAuthenticated={!!uid}
           />
           <Redirect to="/login" />
         </Switch>

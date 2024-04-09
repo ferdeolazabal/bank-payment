@@ -40,7 +40,13 @@ export const startRegister = (email, password, firstName, lastName) => {
       // @ts-ignore
       localStorage.setItem("token-init-date", new Date().getTime());
 
-      dispatch(login({ user: body.user }));
+      dispatch(
+        login({
+          uid: body.uid,
+          name: body.name,
+          user: body.user,
+        })
+      );
     } else {
       Swal.fire("Error", body.msg, "error");
     }

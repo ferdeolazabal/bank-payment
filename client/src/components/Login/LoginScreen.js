@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from "react";
-import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
 import { useForm } from "../../hooks/useForm";
 import { startLogin, startRegister } from "../../redux/actions/auth";
 

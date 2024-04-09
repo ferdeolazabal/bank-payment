@@ -8,6 +8,8 @@ import { httpPostPayment } from "../../redux/actions/payments";
 
 const PaymentModal = () => {
   const dispatch = useDispatch();
+  const authUser = useSelector(({ auth }) => auth.user) || [];
+
   const [initialValues, setInitialValues] = useState({
     amount: "",
     type: "",
@@ -17,12 +19,10 @@ const PaymentModal = () => {
   const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
   let formikRef = null;
 
-  const users = useSelector(({ users }) => users.users) || [];
-
   const handleSubmit = (values) => {
     Object.assign(values, {
       amount: values.amount.toString().replace(/\./g, ""),
-      user: users[0],
+      user: authUser,
       status: "success",
     });
     dispatch(httpPostPayment(values));

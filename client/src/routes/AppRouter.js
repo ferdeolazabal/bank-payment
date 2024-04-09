@@ -23,11 +23,11 @@ const AppRouter = () => {
           />
 
           <PrivateRoute
-            path="/home"
+            path="/payment"
             component={Layout}
             isAuthenticated={!!user?._id}
           />
-          <Redirect to="/login" />
+          <Redirect to="/payment" />
         </Switch>
       </div>
     </Router>

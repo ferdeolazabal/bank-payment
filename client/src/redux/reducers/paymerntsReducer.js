@@ -35,6 +35,28 @@ export const paymentsReducer = (state = initialState, action) => {
         paymentsToFilter: filteredPayments,
       };
 
+    case types.filterPaymentsByType:
+      let filter;
+      action.payload === ""
+        ? (filter = state.payments)
+        : (filter = state.payments.filter((p) => p.type === action.payload));
+
+      return {
+        ...state,
+        paymentsToFilter: filter,
+      };
+
+    case types.filterPaymentsByStatus:
+      let fStatus;
+      action.payload === ""
+        ? (fStatus = state.payments)
+        : (fStatus = state.payments.filter((p) => p.status === action.payload));
+
+      return {
+        ...state,
+        paymentsToFilter: fStatus,
+      };
+
     default:
       return state;
   }

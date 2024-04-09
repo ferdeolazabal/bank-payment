@@ -57,3 +57,20 @@ export const filterByUser = (userId) => {
     });
   };
 };
+
+export const filterByPaymentType = (type) => {
+  return async (dispatch) => {
+    dispatch({
+      type: types.filterPaymentsByType,
+      payload: type,
+    });
+  };
+};
+export const filterByPaymentStatus = (status) => {
+  return async (dispatch) => {
+    dispatch({
+      type: types.filterPaymentsByStatus,
+      payload: status,
+    });
+  };
+};

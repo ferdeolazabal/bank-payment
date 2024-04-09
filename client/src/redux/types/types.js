@@ -1,11 +1,14 @@
 export const types = {
+  authLogin: "[auth] Start Login",
+  authLogout: "[auth] Start Logout",
+  authNewUserLogin: "[auth] Start New User Login",
+
   getUsers: "[user] Get Users",
-  filterPaymentsByUsers: "[payments] Filter By Users",
 
   getPayments: "[payments] Get Payments",
   postPayments: "[payments] Post Payments",
 
-  authLogin: "[auth] Start Login",
-  authLogout: "[auth] Start Logout",
-  authNewUserLogin: "[auth] Start New User Login",
+  filterPaymentsByUsers: "[payments] Filter By Users",
+  filterPaymentsByType: "[payments] Filter By Type",
+  filterPaymentsByStatus: "[payments] Filter By Status",
 };

@@ -5,6 +5,7 @@ import PaymentModal from "../UiElements/PaymentModal";
 import PaymentsHeader from "./PaymentsHeader";
 import PaymentsRow from "./PaymentsRow";
 import PaymentsSearch from "./PaymentsSearch";
+import DownloadCsvButton from "../UiElements/DownloadCsvButton";
 
 const PaymentsScreen = () => {
   const paymentsToFilter = useSelector(
@@ -14,10 +15,11 @@ const PaymentsScreen = () => {
   return (
     <div className="container px-4 py-6 mx-auto">
       <PaymentsSearch />
-      <div className="flex justify-end">
+      <div className="flex justify-end mt-4">
+        <DownloadCsvButton />
         <PaymentModal />
       </div>
-      <div className="flex flex-col mt-8">
+      <div className="flex flex-col mt-6">
         <div className="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
           <div className="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
             <table className="min-w-full">

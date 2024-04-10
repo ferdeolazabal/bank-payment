@@ -2,6 +2,8 @@
 import { roundDateToDay } from "../../helpers/functions";
 import {
   ADD_PAYMENT,
+  DOWNLOAD_PAYMENTS_CSV,
+  DOWNLOAD_PAYMENTS_CSV_ERROR,
   GET_PAYMENTS,
   SEARCH_USER_PAYMENTS,
   SET_FILTERED_PAYMENTS_BY_AMOUNT,
@@ -69,7 +71,7 @@ export const filterPaymentsByUser = (userId) => {
     if (userId === "") {
       filteredPayments = payments;
     } else {
-      filteredPayments = payments.filter((p) => p.user?._id === userId);
+      filteredPayments = payments.filter((p) => p.user?.id === userId);
     }
 
     dispatch({
@@ -212,5 +214,41 @@ export const searchUserPayments = (payload) => {
       type: SEARCH_USER_PAYMENTS,
       payload: userFilter,
     });
+  };
+};
+
+export const exportPaymentsInCsv = () => {
+  return (dispatch) => {
+    const url = `${baseUrl}/payments/export-csv`;
+    try {
+      return fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+      })
+        .then((response) => response.blob())
+        .then((blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", `Listado_de_pagos.csv`);
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        })
+        .then(() =>
+          dispatch({
+            type: DOWNLOAD_PAYMENTS_CSV,
+            payload: true,
+          })
+        );
+    } catch (e) {
+      dispatch({
+        type: DOWNLOAD_PAYMENTS_CSV_ERROR,
+        payload: e,
+      });
+      console.log("ERROR DOWNLOADING CSV", e);
+    }
   };
 };

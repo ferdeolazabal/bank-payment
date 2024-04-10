@@ -1,6 +1,11 @@
 import { AppDataSource } from "../data-source";
 import { Response, Request } from "express";
+import ConverToCSVHelper from "../helpers/csv";
+import fs from "fs";
+import path from "path";
+
 import Payment from "../domain/Payment";
+import { statusEnum, typeEnum } from "../helpers/helpers";
 
 const getPayments = async (req: Request, res: Response) => {
   try {
@@ -76,4 +81,49 @@ const postPayment = async (req: Request, res: Response) => {
   }
 };
 
-export { getPayments, getPayment, postPayment };
+const downloadCsvPayments = async (req: Request, res: Response) => {
+  try {
+    const csvHelper = new ConverToCSVHelper();
+    const savedPayments = await AppDataSource.manager.find(Payment, {
+      relations: ["user"],
+    });
+
+    const paymentsToDownload = savedPayments.map((data) => {
+      return {
+        Nombre_de_usuario: data.user?.getFullName() || "-",
+        Email: data.user?.getEmail() || "-",
+        Forma_de_pago: typeEnum[data.type],
+        Fecha_de_pago: new Date(data.getCreatedAt()).toLocaleDateString(),
+        Estado: statusEnum[data.getStatus()],
+        Monto: `$ ${data.getAmount()}`,
+        Receptor: data.getReceiver(),
+      };
+    });
+
+    const filePath = await csvHelper.convertToCSV(
+      paymentsToDownload,
+      "payments"
+    );
+
+    res.setHeader(
+      "Content-Disposition",
+      "attachment; filename=" + path.basename(filePath)
+    );
+    res.setHeader("Content-Type", "text/csv");
+
+    const fileStream = fs.createReadStream(filePath);
+    fileStream.pipe(res);
+
+    fileStream.on("end", () => {
+      fs.unlinkSync(filePath);
+    });
+  } catch (e) {
+    console.log("Error al descargar el archivo CSV:", e);
+    res.status(500).json({
+      ok: false,
+      message: "Error al descargar el archivo CSV",
+    });
+  }
+};
+
+export { getPayments, getPayment, postPayment, downloadCsvPayments };

@@ -1,10 +1,14 @@
-import { Router } from "express";
 import { check } from "express-validator";
 import { fieldValidator } from "../middlewares/fieldValidator";
-
-import { getPayments, getPayment, postPayment } from "../controllers/payments";
-import PaymentTypeEnum from "../Infrastructure/Enums/PaymentTypeEnum";
+import { Router } from "express";
 import PaymentStatusEnum from "../Infrastructure/Enums/PaymentStatusEnum";
+import PaymentTypeEnum from "../Infrastructure/Enums/PaymentTypeEnum";
+import {
+  getPayments,
+  getPayment,
+  postPayment,
+  downloadCsvPayments,
+} from "../controllers/payments";
 
 const paymentsRoutes = Router();
 
@@ -30,5 +34,7 @@ paymentsRoutes.post(
   ],
   postPayment
 );
+
+paymentsRoutes.post("/export-csv", downloadCsvPayments);
 
 export default paymentsRoutes;

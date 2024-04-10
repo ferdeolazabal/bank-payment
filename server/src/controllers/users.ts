@@ -1,7 +1,5 @@
 import { AppDataSource } from "../data-source";
-import { generateJWT } from "../helpers/jwt";
 import { Response, Request } from "express";
-import bcrypt from "bcryptjs";
 
 import User from "../domain/User";
 

@@ -10,8 +10,7 @@ export const startLogin = (email, password) => {
 
     if (body.ok) {
       localStorage.setItem("token", body.token);
-      // @ts-ignore
-      localStorage.setItem("token-init-date", new Date().getTime());
+      localStorage.setItem("token-init-date", `${new Date().getTime()}`);
 
       dispatch(
         login({

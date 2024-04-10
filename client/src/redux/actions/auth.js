@@ -26,6 +26,42 @@ export const startLogin = (email, password) => {
   };
 };
 
+export const refreshAuthToken = () => {
+  return async (dispatch) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        console.error("No se encontró el token en el almacenamiento local");
+        return;
+      }
+
+      const resp = await fetch("auth/renew", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-token": token,
+        },
+      });
+
+      const body = await resp.json();
+      console.log("body", body);
+      if (body.ok) {
+        localStorage.setItem("token", body.token);
+        // @ts-ignore
+        localStorage.setItem("token-init-date", new Date().getTime());
+      } else {
+        console.error("Error al actualizar el token:", body.msg);
+      }
+    } catch (e) {
+      console.error(
+        "Error al realizar la solicitud de actualización del token:",
+        { e }
+      );
+    }
+  };
+};
+
 export const startRegister = (email, password, firstName, lastName) => {
   return async (dispatch) => {
     const resp = await fetchSinToken(

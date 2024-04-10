@@ -73,7 +73,6 @@ const postPayment = async (req: Request, res: Response) => {
       payment: newPayment,
     });
   } catch (e) {
-    console.log({ e });
     res.status(500).json({
       ok: false,
       message: "Error al guardar el pago",

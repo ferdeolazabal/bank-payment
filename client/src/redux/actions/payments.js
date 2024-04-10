@@ -102,3 +102,12 @@ export const filterByPaymentDate = (date) => {
     });
   };
 };
+
+export const getUsersByName = (user) => {
+  return async (dispatch) => {
+    dispatch({
+      type: types.searchUserPayments,
+      payload: user,
+    });
+  };
+};

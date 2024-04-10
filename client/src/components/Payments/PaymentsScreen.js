@@ -1,9 +1,10 @@
 // @ts-nocheck
 import React from "react";
-import PaymentsRow from "./PaymentsRow";
-import PaymentsHeader from "./PaymentsHeader";
 import { useSelector } from "react-redux";
 import PaymentModal from "../UiElements/PaymentModal";
+import PaymentsHeader from "./PaymentsHeader";
+import PaymentsRow from "./PaymentsRow";
+import PaymentsSearch from "./PaymentsSearch";
 
 const PaymentsScreen = () => {
   const paymentsToFilter = useSelector(
@@ -11,7 +12,8 @@ const PaymentsScreen = () => {
   );
 
   return (
-    <div className="container px-6 py-8 mx-auto">
+    <div className="container px-4 py-6 mx-auto">
+      <PaymentsSearch />
       <div className="flex justify-end">
         <PaymentModal />
       </div>

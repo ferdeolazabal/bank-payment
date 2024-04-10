@@ -1,14 +1,30 @@
 // @ts-nocheck
 import React from "react";
-import { useSelector } from "react-redux";
+import queryString from "query-string";
+
+import { useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useForm } from "../../hooks/useForm";
+import { getUsersByName } from "../../redux/actions/payments";
 
 const PaymentsSearch = () => {
-  const paymentsToFilter =
-    useSelector(({ payments }) => payments.paymentsToFilter) || [];
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const { q = "" } = queryString.parse(location.search);
+
+  const [formValues, handleInputChange] = useForm({
+    find: q,
+  });
+  const { find } = formValues;
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    dispatch(getUsersByName(find));
+  };
 
   return (
     <div>
-      <form className="max-w-md mx-auto">
+      <form className="max-w-md mx-auto" onSubmit={handleSearch}>
         <label
           htmlFor="default-search"
           className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
@@ -26,9 +42,9 @@ const PaymentsSearch = () => {
             >
               <path
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
               />
             </svg>
@@ -37,8 +53,11 @@ const PaymentsSearch = () => {
             type="search"
             id="default-search"
             className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Buscar Pagos..."
-            required
+            placeholder="Buscar pagos por usuario ó destinatario..."
+            name="find"
+            onChange={handleInputChange}
+            value={find}
+            autoComplete="off"
           />
           <button
             type="submit"

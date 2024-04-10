@@ -1,6 +1,11 @@
 // @ts-nocheck
 import { roundDateToDay } from "../../helpers/functions";
-import { types } from "../types/types";
+import {
+  SEARCH_USER_PAYMENTS,
+  SET_FILTERED_PAYMENTS_BY_AMOUNT,
+  SET_FILTERED_PAYMENTS_BY_DATE,
+  types,
+} from "../types/types";
 
 const initialState = {
   payments: [],
@@ -67,50 +72,19 @@ export const paymentsReducer = (state = initialState, { type, payload }) => {
         paymentsToFilter: fReceiver,
       };
 
-    case types.filterPaymentsByAmount:
-      let filterAmount;
-
-      if (payload === "") {
-        filterAmount = [...state.payments];
-      } else if (payload === "Asc" || payload === "Desc") {
-        filterAmount = [...state.payments];
-        filterAmount.sort((a, b) => {
-          if (payload === "Asc") {
-            return a.amount - b.amount;
-          } else {
-            return b.amount - a.amount;
-          }
-        });
-      } else {
-        filterAmount = state.payments.filter((p) => p?.amount === +payload);
-      }
-
+    case SET_FILTERED_PAYMENTS_BY_AMOUNT:
       return {
         ...state,
-        paymentsToFilter: filterAmount,
+        paymentsToFilter: payload,
       };
 
-    case types.filterPaymentsByDate:
-      let filterDate;
-      const selectedDate =
-        payload !== "" &&
-        roundDateToDay(new Date(payload)).toISOString().slice(0, 10);
-
-      payload === ""
-        ? (filterDate = state.payments)
-        : (filterDate = state.payments.filter((p) => {
-            const paymentDate = roundDateToDay(new Date(p.createdAt))
-              .toISOString()
-              .slice(0, 10);
-            return paymentDate === selectedDate;
-          }));
-
+    case SET_FILTERED_PAYMENTS_BY_DATE:
       return {
         ...state,
-        paymentsToFilter: filterDate,
+        paymentsToFilter: payload,
       };
 
-    case types.SEARCH_USER_PAYMENTS:
+    case SEARCH_USER_PAYMENTS:
       return {
         ...state,
         paymentsToFilter: payload,

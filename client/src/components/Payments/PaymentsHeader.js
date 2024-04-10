@@ -4,12 +4,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { statusEnum, typeEnum } from "../../helpers/enums";
 import { roundDateToDay } from "../../helpers/functions";
 import {
-  filterByPaymentAmount,
-  filterByPaymentDate,
+  filterPaymentsByDate,
   filterByPaymentReceiver,
   filterByPaymentStatus,
   filterByPaymentType,
   filterByUser,
+  filterPaymentsByAmount,
 } from "../../redux/actions/payments";
 
 const thStyle =
@@ -66,7 +66,7 @@ const PaymentsHeader = () => {
 
   const handleFilterByPaymentAmount = (e) => {
     e.preventDefault();
-    dispatch(filterByPaymentAmount(e.target.value));
+    dispatch(filterPaymentsByAmount(e.target.value));
   };
 
   const handleFilterByPaymentReceiver = (e) => {
@@ -76,7 +76,7 @@ const PaymentsHeader = () => {
 
   const handleFilterByDate = (e) => {
     e.preventDefault();
-    dispatch(filterByPaymentDate(e.target.value));
+    dispatch(filterPaymentsByDate(e.target.value));
   };
 
   return (

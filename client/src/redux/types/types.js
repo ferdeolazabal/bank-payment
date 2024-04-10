@@ -11,8 +11,11 @@ export const types = {
   filterPaymentsByUsers: "[payments] Filter By Users",
   filterPaymentsByType: "[payments] Filter By Type",
   filterPaymentsByStatus: "[payments] Filter By Status",
-  filterPaymentsByAmount: "[payments] Filter By Amount",
   filterPaymentsByReceiver: "[payments] Filter By Receiver",
-  filterPaymentsByDate: "[payments] Filter By Date",
-  SEARCH_USER_PAYMENTS: "[payments] Search User Payments",
+  filterPaymentsByAmount: "[payments] Filter By Amount",
+  // FILTER_PAYMENTS_BY_DATE: "[payments] Filter By Date",
 };
+export const SET_FILTERED_PAYMENTS_BY_AMOUNT =
+  "SET_FILTERED_PAYMENTS_BY_AMOUNT";
+export const SET_FILTERED_PAYMENTS_BY_DATE = "SET_FILTERED_PAYMENTS_BY_DATE";
+export const SEARCH_USER_PAYMENTS = "SEARCH USER PAYMENTS";

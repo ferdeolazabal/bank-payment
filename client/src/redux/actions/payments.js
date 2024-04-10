@@ -1,5 +1,11 @@
 // @ts-nocheck
-import { types } from "../types/types";
+import { roundDateToDay } from "../../helpers/functions";
+import {
+  SEARCH_USER_PAYMENTS,
+  SET_FILTERED_PAYMENTS_BY_AMOUNT,
+  SET_FILTERED_PAYMENTS_BY_DATE,
+  types,
+} from "../types/types";
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
@@ -76,11 +82,30 @@ export const filterByPaymentStatus = (status) => {
   };
 };
 
-export const filterByPaymentAmount = (amount) => {
-  return async (dispatch) => {
+export const filterPaymentsByAmount = (amount) => {
+  return async (dispatch, getState) => {
+    const { payments } = getState().payments;
+
+    let filterAmount;
+
+    if (amount === "") {
+      filterAmount = [...payments];
+    } else if (amount === "Asc" || amount === "Desc") {
+      filterAmount = [...payments];
+      filterAmount.sort((a, b) => {
+        if (amount === "Asc") {
+          return a.amount - b.amount;
+        } else {
+          return b.amount - a.amount;
+        }
+      });
+    } else {
+      filterAmount = payments.filter((p) => p?.amount === +amount);
+    }
+
     dispatch({
-      type: types.filterPaymentsByAmount,
-      payload: amount,
+      type: SET_FILTERED_PAYMENTS_BY_AMOUNT,
+      payload: filterAmount,
     });
   };
 };
@@ -94,20 +119,28 @@ export const filterByPaymentReceiver = (email) => {
   };
 };
 
-export const filterByPaymentDate = (date) => {
-  return async (dispatch) => {
-    dispatch({
-      type: types.filterPaymentsByDate,
-      payload: date,
-    });
-  };
-};
+export const filterPaymentsByDate = (date) => {
+  return async (dispatch, getState) => {
+    const { payments } = getState().payments;
 
-export const getUsersByName = (user) => {
-  return async (dispatch) => {
+    let filterDate;
+    const selectedDate =
+      date !== "" && roundDateToDay(new Date(date)).toISOString().slice(0, 10);
+
+    if (date === "") {
+      filterDate = payments;
+    } else {
+      filterDate = payments.filter((p) => {
+        const paymentDate = roundDateToDay(new Date(p.createdAt))
+          .toISOString()
+          .slice(0, 10);
+        return paymentDate === selectedDate;
+      });
+    }
+
     dispatch({
-      type: types.searchUserPayments,
-      payload: user,
+      type: SET_FILTERED_PAYMENTS_BY_DATE,
+      payload: filterDate,
     });
   };
 };
@@ -132,7 +165,7 @@ export const searchUserPayments = (payload) => {
     });
 
     dispatch({
-      type: types.SEARCH_USER_PAYMENTS,
+      type: SEARCH_USER_PAYMENTS,
       payload: userFilter,
     });
   };

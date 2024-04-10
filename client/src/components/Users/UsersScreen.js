@@ -17,7 +17,7 @@ const UsersScreen = () => {
 
               <tbody className="bg-white">
                 {users.length > 0 &&
-                  users.map((user) => <UsersRow key={user._id} user={user} />)}
+                  users.map((user) => <UsersRow key={user.id} user={user} />)}
               </tbody>
             </table>
           </div>

@@ -1,6 +1,8 @@
 // @ts-nocheck
 import { roundDateToDay } from "../../helpers/functions";
 import {
+  ADD_PAYMENT,
+  GET_PAYMENTS,
   SEARCH_USER_PAYMENTS,
   SET_FILTERED_PAYMENTS_BY_AMOUNT,
   SET_FILTERED_PAYMENTS_BY_DATE,
@@ -8,7 +10,6 @@ import {
   SET_FILTERED_PAYMENTS_BY_STATUS,
   SET_FILTERED_PAYMENTS_BY_TYPE,
   SET_FILTERED_PAYMENTS_BY_USERS,
-  types,
 } from "../types/types";
 
 const baseUrl = process.env.REACT_APP_API_URL;
@@ -24,7 +25,7 @@ export const httpGetPayments = async () => {
 };
 
 const getPayments = (payload) => ({
-  type: types.getPayments,
+  type: GET_PAYMENTS,
   payload,
 });
 
@@ -43,7 +44,7 @@ export const httpPostPayment = (body) => async (dispatch) => {
       .then(({ payment, ok }) => {
         if (ok) {
           dispatch({
-            type: types.postPayments,
+            type: ADD_PAYMENT,
             payload: payment,
           });
           return Promise.resolve(payment);
@@ -58,6 +59,7 @@ export const httpPostPayment = (body) => async (dispatch) => {
     return Promise.reject();
   }
 };
+
 export const filterPaymentsByUser = (userId) => {
   return async (dispatch, getState) => {
     const { payments } = getState().payments;

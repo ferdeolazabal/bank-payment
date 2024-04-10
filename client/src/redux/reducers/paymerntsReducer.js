@@ -1,5 +1,7 @@
 // @ts-nocheck
 import {
+  ADD_PAYMENT,
+  GET_PAYMENTS,
   SEARCH_USER_PAYMENTS,
   SET_FILTERED_PAYMENTS_BY_AMOUNT,
   SET_FILTERED_PAYMENTS_BY_DATE,
@@ -7,7 +9,6 @@ import {
   SET_FILTERED_PAYMENTS_BY_STATUS,
   SET_FILTERED_PAYMENTS_BY_TYPE,
   SET_FILTERED_PAYMENTS_BY_USERS,
-  types,
 } from "../types/types";
 
 const initialState = {
@@ -17,19 +18,20 @@ const initialState = {
 
 export const paymentsReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case types.getPayments:
+    case GET_PAYMENTS:
       return {
         ...state,
         payments: payload,
         paymentsToFilter: payload,
       };
 
-    case types.postPayments:
+    case ADD_PAYMENT:
       return {
         ...state,
         payments: [payload, ...state.payments],
         paymentsToFilter: [payload, ...state.paymentsToFilter],
       };
+
     case SET_FILTERED_PAYMENTS_BY_USERS:
       return {
         ...state,

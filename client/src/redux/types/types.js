@@ -6,9 +6,10 @@ export const types = {
   getUsers: "[user] Get Users",
 
   getPayments: "[payments] Get Payments",
-  postPayments: "[payments] Post Payments",
 };
 
+export const GET_PAYMENTS = "GET_PAYMENTS";
+export const ADD_PAYMENT = "ADD_PAYMENT";
 export const SET_FILTERED_PAYMENTS_BY_USERS = "SET_FILTERED_PAYMENTS_BY_USERS";
 export const SET_FILTERED_PAYMENTS_BY_TYPE = "SET_FILTERED_PAYMENTS_BY_TYPE";
 export const SET_FILTERED_PAYMENTS_BY_STATUS =

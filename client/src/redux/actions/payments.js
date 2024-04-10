@@ -6,6 +6,8 @@ import {
   SET_FILTERED_PAYMENTS_BY_DATE,
   SET_FILTERED_PAYMENTS_BY_RECEIVER,
   SET_FILTERED_PAYMENTS_BY_STATUS,
+  SET_FILTERED_PAYMENTS_BY_TYPE,
+  SET_FILTERED_PAYMENTS_BY_USERS,
   types,
 } from "../types/types";
 
@@ -56,26 +58,44 @@ export const httpPostPayment = (body) => async (dispatch) => {
     return Promise.reject();
   }
 };
+export const filterPaymentsByUser = (userId) => {
+  return async (dispatch, getState) => {
+    const { payments } = getState().payments;
 
-export const filterByUser = (userId) => {
-  return async (dispatch) => {
+    let filteredPayments;
+
+    if (userId === "") {
+      filteredPayments = payments;
+    } else {
+      filteredPayments = payments.filter((p) => p.user?._id === userId);
+    }
+
     dispatch({
-      type: types.filterPaymentsByUsers,
-      payload: userId,
+      type: SET_FILTERED_PAYMENTS_BY_USERS,
+      payload: filteredPayments,
+    });
+  };
+};
+export const filterPaymentsByType = (type) => {
+  return async (dispatch, getState) => {
+    const { payments } = getState().payments;
+
+    let filteredPayments;
+
+    if (type === "") {
+      filteredPayments = payments;
+    } else {
+      filteredPayments = payments.filter((p) => p.type === type);
+    }
+
+    dispatch({
+      type: SET_FILTERED_PAYMENTS_BY_TYPE,
+      payload: filteredPayments,
     });
   };
 };
 
-export const filterByPaymentType = (type) => {
-  return async (dispatch) => {
-    dispatch({
-      type: types.filterPaymentsByType,
-      payload: type,
-    });
-  };
-};
-
-export const filterByPaymentStatus = (status) => {
+export const filterPaymentByStatus = (status) => {
   return async (dispatch, getState) => {
     const { payments } = getState().payments;
 

@@ -5,6 +5,8 @@ import {
   SET_FILTERED_PAYMENTS_BY_DATE,
   SET_FILTERED_PAYMENTS_BY_RECEIVER,
   SET_FILTERED_PAYMENTS_BY_STATUS,
+  SET_FILTERED_PAYMENTS_BY_TYPE,
+  SET_FILTERED_PAYMENTS_BY_USERS,
   types,
 } from "../types/types";
 
@@ -28,28 +30,18 @@ export const paymentsReducer = (state = initialState, { type, payload }) => {
         payments: [payload, ...state.payments],
         paymentsToFilter: [payload, ...state.paymentsToFilter],
       };
-
-    case types.filterPaymentsByUsers:
-      let filterPay;
-      payload === ""
-        ? (filterPay = state.payments)
-        : (filterPay = state.payments.filter((p) => p.user._id === payload));
-
+    case SET_FILTERED_PAYMENTS_BY_USERS:
       return {
         ...state,
-        paymentsToFilter: filterPay,
+        paymentsToFilter: payload,
       };
 
-    case types.filterPaymentsByType:
-      let filterType;
-      payload === ""
-        ? (filterType = state.payments)
-        : (filterType = state.payments.filter((p) => p.type === payload));
-
+    case SET_FILTERED_PAYMENTS_BY_TYPE:
       return {
         ...state,
-        paymentsToFilter: filterType,
+        paymentsToFilter: payload,
       };
+
     case SET_FILTERED_PAYMENTS_BY_STATUS:
       return {
         ...state,

@@ -5,11 +5,11 @@ import { statusEnum, typeEnum } from "../../helpers/enums";
 import { roundDateToDay } from "../../helpers/functions";
 import {
   filterPaymentsByDate,
-  filterByPaymentType,
-  filterByUser,
+  filterPaymentsByType,
   filterPaymentsByAmount,
   filterPaymentsByReceiver,
-  filterByPaymentStatus,
+  filterPaymentByStatus,
+  filterPaymentsByUser,
 } from "../../redux/actions/payments";
 
 const thStyle =
@@ -51,17 +51,17 @@ const PaymentsHeader = () => {
 
   const handleFilterByUser = (e) => {
     e.preventDefault();
-    dispatch(filterByUser(e.target.value));
+    dispatch(filterPaymentsByUser(e.target.value));
   };
 
   const handleFilterByPaymentType = (e) => {
     e.preventDefault();
-    dispatch(filterByPaymentType(e.target.value));
+    dispatch(filterPaymentsByType(e.target.value));
   };
 
   const handleFilterByPaymentStatus = (e) => {
     e.preventDefault();
-    dispatch(filterByPaymentStatus(e.target.value));
+    dispatch(filterPaymentByStatus(e.target.value));
   };
 
   const handleFilterByPaymentAmount = (e) => {
@@ -96,8 +96,8 @@ const PaymentsHeader = () => {
                   value={user?._id}
                   className="border-gray-200 bg-gray-50 text-gray-500"
                 >
-                  {user && (user?.firstName || "")}&nbsp;
-                  {user && (user?.lastName || "")}
+                  {user?.firstName || ""}&nbsp;
+                  {user?.lastName || ""}
                 </option>
               );
             })}

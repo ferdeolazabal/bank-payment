@@ -7,11 +7,10 @@ export const types = {
 
   getPayments: "[payments] Get Payments",
   postPayments: "[payments] Post Payments",
-
-  filterPaymentsByUsers: "[payments] Filter By Users",
-  filterPaymentsByType: "[payments] Filter By Type",
-  filterPaymentsByStatus: "[payments] Filter By Status",
 };
+
+export const SET_FILTERED_PAYMENTS_BY_USERS = "SET_FILTERED_PAYMENTS_BY_USERS";
+export const SET_FILTERED_PAYMENTS_BY_TYPE = "SET_FILTERED_PAYMENTS_BY_TYPE";
 export const SET_FILTERED_PAYMENTS_BY_STATUS =
   "SET_FILTERED_PAYMENTS_BY_STATUS";
 export const SET_FILTERED_PAYMENTS_BY_RECEIVER =

@@ -4,7 +4,6 @@ import { httpGetPayments } from "../redux/actions/payments";
 import { httpGetUsers } from "../redux/actions/users";
 import { useDispatch } from "react-redux";
 
-import Header from "./Header";
 import Navigation from "../routes/Navigation";
 
 const Layout = () => {
@@ -20,8 +19,7 @@ const Layout = () => {
   }, [dispatch]);
 
   return (
-    <div>
-      <Header />
+    <div className="">
       <Navigation />
     </div>
   );

@@ -5,6 +5,7 @@ import {
   SET_FILTERED_PAYMENTS_BY_AMOUNT,
   SET_FILTERED_PAYMENTS_BY_DATE,
   SET_FILTERED_PAYMENTS_BY_RECEIVER,
+  SET_FILTERED_PAYMENTS_BY_STATUS,
   types,
 } from "../types/types";
 
@@ -75,10 +76,20 @@ export const filterByPaymentType = (type) => {
 };
 
 export const filterByPaymentStatus = (status) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const { payments } = getState().payments;
+
+    let filteredPayments;
+
+    if (status === "") {
+      filteredPayments = payments;
+    } else {
+      filteredPayments = payments.filter((p) => p.status === status);
+    }
+
     dispatch({
-      type: types.filterPaymentsByStatus,
-      payload: status,
+      type: SET_FILTERED_PAYMENTS_BY_STATUS,
+      payload: filteredPayments,
     });
   };
 };

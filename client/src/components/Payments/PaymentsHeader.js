@@ -5,11 +5,11 @@ import { statusEnum, typeEnum } from "../../helpers/enums";
 import { roundDateToDay } from "../../helpers/functions";
 import {
   filterPaymentsByDate,
-  filterByPaymentStatus,
   filterByPaymentType,
   filterByUser,
   filterPaymentsByAmount,
   filterPaymentsByReceiver,
+  filterByPaymentStatus,
 } from "../../redux/actions/payments";
 
 const thStyle =

@@ -110,26 +110,10 @@ export const paymentsReducer = (state = initialState, { type, payload }) => {
         paymentsToFilter: filterDate,
       };
 
-    case types.searchUserPayments:
-      const userFilter = state.payments.filter((payment) => {
-        const lowercaseName = payload.toLowerCase();
-        const lowercaseReceiver = payment.receiver.toLowerCase();
-
-        const lowercaseFirstName = payment.user?.firstName?.toLowerCase();
-        const lowercaseLastName = payment.user?.lastName?.toLowerCase();
-        const lowercaseEmail = payment.user?.email.toLowerCase();
-
-        return (
-          lowercaseReceiver?.includes(lowercaseName) ||
-          lowercaseFirstName?.includes(lowercaseName) ||
-          lowercaseLastName?.includes(lowercaseName) ||
-          lowercaseEmail?.includes(lowercaseName)
-        );
-      });
-
+    case types.SEARCH_USER_PAYMENTS:
       return {
         ...state,
-        paymentsToFilter: userFilter,
+        paymentsToFilter: payload,
       };
 
     default:

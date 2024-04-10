@@ -111,3 +111,29 @@ export const getUsersByName = (user) => {
     });
   };
 };
+
+export const searchUserPayments = (payload) => {
+  return (dispatch, getState) => {
+    const { payments } = getState();
+    const userFilter = payments.payments?.filter((payment) => {
+      const lowercaseName = payload.toLowerCase();
+
+      const lowercaseReceiver = payment?.receiver?.toLowerCase();
+      const lowercaseFirstName = payment?.user?.firstName?.toLowerCase();
+      const lowercaseLastName = payment?.user?.lastName?.toLowerCase();
+      const lowercaseEmail = payment?.user?.email?.toLowerCase();
+
+      return (
+        lowercaseReceiver?.includes(lowercaseName) ||
+        lowercaseFirstName?.includes(lowercaseName) ||
+        lowercaseLastName?.includes(lowercaseName) ||
+        lowercaseEmail?.includes(lowercaseName)
+      );
+    });
+
+    dispatch({
+      type: types.SEARCH_USER_PAYMENTS,
+      payload: userFilter,
+    });
+  };
+};

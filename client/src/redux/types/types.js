@@ -1,13 +1,6 @@
-export const types = {
-  authLogin: "[auth] Start Login",
-  authLogout: "[auth] Start Logout",
-  authNewUserLogin: "[auth] Start New User Login",
-
-  getUsers: "[user] Get Users",
-
-  getPayments: "[payments] Get Payments",
-};
-
+export const LOGOUT = "LOGOUT ";
+export const LOGIN = "LOGIN";
+export const GET_USERS = "GET_USERS";
 export const GET_PAYMENTS = "GET_PAYMENTS";
 export const ADD_PAYMENT = "ADD_PAYMENT";
 export const SET_FILTERED_PAYMENTS_BY_USERS = "SET_FILTERED_PAYMENTS_BY_USERS";

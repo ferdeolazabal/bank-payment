@@ -1,4 +1,4 @@
-import { types } from "../types/types";
+import { GET_USERS } from "../types/types";
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
@@ -13,6 +13,6 @@ export const httpGetUsers = async () => {
 };
 
 const getUsers = (payload) => ({
-  type: types.getUsers,
+  type: GET_USERS,
   payload,
 });

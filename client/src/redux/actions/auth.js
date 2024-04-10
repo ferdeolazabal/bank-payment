@@ -1,6 +1,6 @@
 // @ts-ignore
 import { fetchSinToken } from "../../helpers/fetch";
-import { types } from "../types/types";
+import { LOGIN, LOGOUT } from "../types/types";
 import Swal from "sweetalert2";
 
 export const startLogin = (email, password) => {
@@ -89,9 +89,9 @@ export const startRegister = (email, password, firstName, lastName) => {
   };
 };
 
-const login = (user) => ({
-  type: types.authLogin,
-  payload: user,
+const login = (payload) => ({
+  type: LOGIN,
+  payload,
 });
 
 export const startLogout = () => {
@@ -101,4 +101,4 @@ export const startLogout = () => {
   };
 };
 
-const logout = () => ({ type: types.authLogout });
+const logout = () => ({ type: LOGOUT });

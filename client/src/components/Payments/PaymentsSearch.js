@@ -5,7 +5,7 @@ import queryString from "query-string";
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useForm } from "../../hooks/useForm";
-import { getUsersByName } from "../../redux/actions/payments";
+import { searchUserPayments } from "../../redux/actions/payments";
 
 const PaymentsSearch = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const PaymentsSearch = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    dispatch(getUsersByName(find));
+    dispatch(searchUserPayments(find));
   };
 
   return (

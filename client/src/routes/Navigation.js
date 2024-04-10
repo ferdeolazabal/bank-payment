@@ -2,14 +2,24 @@
 import React from "react";
 import { BrowserRouter, NavLink, Route, Redirect } from "react-router-dom";
 import { Logo, PayIcon, UserIcon } from "../components/UiElements";
+import { useDispatch } from "react-redux";
+import { startLogout } from "../redux/actions/auth";
+
 import PaymentsScreen from "../components/Payments/PaymentsScreen";
 import UsersScreen from "../components/Users/UsersScreen";
 import LoginScreen from "../components/Login/LoginScreen";
 
 const linkClass =
-  "flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100";
+  "flex items-center px-6 py-2 mt-4 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 cursor-pointer";
 
 const Navigation = () => {
+  const dispatch = useDispatch();
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    dispatch(startLogout());
+  };
+
   return (
     <BrowserRouter>
       <div className="flex h-screen bg-gray-200 font-roboto">
@@ -33,6 +43,10 @@ const Navigation = () => {
               <UserIcon />
               <span className="mx-3">Usuarios</span>
             </NavLink>
+            <div className={linkClass} onClick={handleLogout}>
+              <UserIcon />
+              <span className="mx-3">Salir</span>
+            </div>
           </nav>
         </div>
 

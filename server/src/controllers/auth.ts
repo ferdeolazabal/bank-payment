@@ -39,9 +39,20 @@ const createUser = async (req: Request, res: Response) => {
 
     const token = await generateJWT(newUser.getId(), newUser.getFullName());
 
+    const userResponse = {
+      id: newUser.getId(),
+      firstName: newUser.getFirstName(),
+      lastName: newUser.getLastName(),
+      enable: newUser.getEnable(),
+      email: newUser.getEmail(),
+      isSuperAdmin: newUser.getIsSuperAdmin(),
+      createdAt: newUser.getCreatedAt(),
+      updatedAt: newUser.getUpdatedAt(),
+    };
+
     res.json({
       ok: true,
-      newUser,
+      user: userResponse,
       token,
     });
   } catch (e) {
@@ -81,11 +92,22 @@ const userLogin = async (req: Request, res: Response) => {
 
     const token = await generateJWT(user.getId(), user.getFullName());
 
+    const userResponse = {
+      id: user.getId(),
+      firstName: user.getFirstName(),
+      lastName: user.getLastName(),
+      enable: user.getEnable(),
+      email: user.getEmail(),
+      isSuperAdmin: user.getIsSuperAdmin(),
+      createdAt: user.getCreatedAt(),
+      updatedAt: user.getUpdatedAt(),
+    };
+
     res.json({
       ok: true,
       uid: user.getId(),
       name: user.getFullName(),
-      user,
+      user: userResponse,
       token,
     });
   } catch (error) {
@@ -107,11 +129,22 @@ const revalidateToken = async (req: Request, res: Response) => {
       where: { _id: id },
     });
 
+    const userResponse = {
+      id: user.getId(),
+      firstName: user.getFirstName(),
+      lastName: user.getLastName(),
+      enable: user.getEnable(),
+      email: user.getEmail(),
+      isSuperAdmin: user.getIsSuperAdmin(),
+      createdAt: user.getCreatedAt(),
+      updatedAt: user.getUpdatedAt(),
+    };
+
     res.json({
       ok: true,
       token,
       id,
-      user,
+      user: userResponse,
     });
   } catch (e) {
     console.log("Error al revalidar el token", { e });

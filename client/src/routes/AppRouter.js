@@ -10,6 +10,8 @@ import LoginScreen from "../components/Login/LoginScreen";
 
 const AppRouter = () => {
   const uid = useSelector((state) => state.auth.uid);
+  const token = localStorage.getItem("token");
+  const isAuthenticated = !!uid || !!token;
 
   return (
     <Router>
@@ -18,16 +20,16 @@ const AppRouter = () => {
           <PublicRoute
             path="/login"
             component={LoginScreen}
-            isAuthenticated={!!uid}
+            isAuthenticated={isAuthenticated}
           />
 
           <PrivateRoute
             path="/payments"
             component={Layout}
-            isAuthenticated={!!uid}
+            isAuthenticated={isAuthenticated}
           />
 
-          <Redirect to={uid ? "/payments" : "/login"} />
+          <Redirect to={isAuthenticated ? "/payments" : "/login"} />
         </Switch>
       </div>
     </Router>

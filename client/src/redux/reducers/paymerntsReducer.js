@@ -1,9 +1,9 @@
 // @ts-nocheck
-import { roundDateToDay } from "../../helpers/functions";
 import {
   SEARCH_USER_PAYMENTS,
   SET_FILTERED_PAYMENTS_BY_AMOUNT,
   SET_FILTERED_PAYMENTS_BY_DATE,
+  SET_FILTERED_PAYMENTS_BY_RECEIVER,
   types,
 } from "../types/types";
 
@@ -61,15 +61,10 @@ export const paymentsReducer = (state = initialState, { type, payload }) => {
         paymentsToFilter: fStatus,
       };
 
-    case types.filterPaymentsByReceiver:
-      let fReceiver;
-      payload === ""
-        ? (fReceiver = state.payments)
-        : (fReceiver = state.payments.filter((p) => p.receiver === payload));
-
+    case SET_FILTERED_PAYMENTS_BY_RECEIVER:
       return {
         ...state,
-        paymentsToFilter: fReceiver,
+        paymentsToFilter: payload,
       };
 
     case SET_FILTERED_PAYMENTS_BY_AMOUNT:

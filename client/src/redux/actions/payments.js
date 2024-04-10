@@ -4,6 +4,7 @@ import {
   SEARCH_USER_PAYMENTS,
   SET_FILTERED_PAYMENTS_BY_AMOUNT,
   SET_FILTERED_PAYMENTS_BY_DATE,
+  SET_FILTERED_PAYMENTS_BY_RECEIVER,
   types,
 } from "../types/types";
 
@@ -110,11 +111,21 @@ export const filterPaymentsByAmount = (amount) => {
   };
 };
 
-export const filterByPaymentReceiver = (email) => {
-  return async (dispatch) => {
+export const filterPaymentsByReceiver = (email) => {
+  return async (dispatch, getState) => {
+    const { payments } = getState().payments;
+
+    let filteredPayments;
+
+    if (email === "") {
+      filteredPayments = payments;
+    } else {
+      filteredPayments = payments.filter((p) => p.receiver === email);
+    }
+
     dispatch({
-      type: types.filterPaymentsByReceiver,
-      payload: email,
+      type: SET_FILTERED_PAYMENTS_BY_RECEIVER,
+      payload: filteredPayments,
     });
   };
 };

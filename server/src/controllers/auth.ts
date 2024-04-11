@@ -7,7 +7,7 @@ import User from "../domain/User";
 
 const createUser = async (req: Request, res: Response) => {
   const { body } = req;
-  console.log("body", body);
+
   try {
     const existeEmail = await AppDataSource.manager.findOne(User, {
       where: { email: body.email },
@@ -110,8 +110,8 @@ const userLogin = async (req: Request, res: Response) => {
       user: userResponse,
       token,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (e) {
+    console.log({ e });
     res.status(500).json({
       ok: false,
       msg: "Por favor hable con el administrador",

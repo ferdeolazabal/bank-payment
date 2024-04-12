@@ -27,7 +27,8 @@ class Server {
 
     this.app.get("/*", (req, res) => {
       res.sendFile(
-        path.join(__dirname, "../server", "public", "static", "index.html")
+        path.join(__dirname, "..", "public", "index.html")
+        // path.join(__dirname, "../server", "public", "static", "index.html")
       );
     });
   }
@@ -47,9 +48,11 @@ class Server {
     this.app.use(morgan("dev"));
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
-    this.app.use(
-      express.static(path.join(__dirname, "../server", "public", "static"))
-    );
+    this.app.use(express.static(path.join(__dirname, "..", "public")));
+
+    // this.app.use(
+    //   express.static(path.join(__dirname, "../server", "public", "static"))
+    // );
   }
 
   routes() {

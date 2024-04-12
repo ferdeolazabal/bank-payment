@@ -7,6 +7,7 @@ import { AppDataSource } from "./src/data-source";
 import paymentsRoutes from "./src/routes/payments";
 import usersRoutes from "./src/routes/users";
 import authRoutes from "./src/routes/auth";
+import User from "./src/domain/User";
 
 class Server {
   private app: Application;
@@ -37,6 +38,17 @@ class Server {
     AppDataSource.initialize()
       .then(() => {
         console.log("Connection has been established successfully!");
+        const user = new User();
+
+        user.setValues({
+          firstName: "john",
+          lastName: "connor",
+          email: "john@connor.com",
+          password: "123456",
+          enable: true,
+          isSuperAdmin: false,
+        });
+        AppDataSource.manager.save(user);
       })
       .catch((error) =>
         console.log("Unable to connect to the database:", error)

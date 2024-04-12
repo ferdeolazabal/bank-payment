@@ -1,5 +1,7 @@
 import { DataSource } from "typeorm";
 import dotenv from "dotenv";
+import PaymentsSchema from "./Infrastructure/Schema/Payment";
+import UserSchema from "./Infrastructure/Schema/User";
 dotenv.config();
 
 console.log("process.env.NODE_ENV =>", process.env.NODE_ENV);
@@ -16,7 +18,7 @@ if (process.env.NODE_ENV === "development") {
     synchronize: true,
     migrationsRun: false,
     logging: false,
-    entities: ["src/Infrastructure/Schema/*.ts"],
+    entities: [PaymentsSchema, UserSchema],
   });
 }
 if (process.env.NODE_ENV === "production") {
@@ -37,6 +39,6 @@ if (process.env.NODE_ENV === "production") {
     synchronize: true,
     migrationsRun: false,
     logging: false,
-    entities: ["src/Infrastructure/Schema/*.ts"],
+    entities: [PaymentsSchema, UserSchema],
   });
 }

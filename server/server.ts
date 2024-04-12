@@ -38,17 +38,17 @@ class Server {
     AppDataSource.initialize()
       .then(() => {
         console.log("Connection has been established successfully!");
-        const user = new User();
+        // const user = new User();
 
-        user.setValues({
-          firstName: "john",
-          lastName: "connor",
-          email: "john@connor.com",
-          password: "123456",
-          enable: true,
-          isSuperAdmin: false,
-        });
-        AppDataSource.manager.save(user);
+        // user.setValues({
+        //   firstName: "john",
+        //   lastName: "connor",
+        //   email: "john@connor.com",
+        //   password: "123456",
+        //   enable: true,
+        //   isSuperAdmin: false,
+        // });
+        // AppDataSource.manager.save(user);
       })
       .catch((error) =>
         console.log("Unable to connect to the database:", error)

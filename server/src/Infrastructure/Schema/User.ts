@@ -1,7 +1,7 @@
 import { EntitySchema } from "typeorm";
 import User from "../../domain/User";
 
-const PaymentsSchema = new EntitySchema<User>({
+const UserSchema = new EntitySchema<User>({
   name: "User",
   target: User,
   tableName: "user",
@@ -45,4 +45,4 @@ const PaymentsSchema = new EntitySchema<User>({
   },
 });
 
-export default PaymentsSchema;
+export default UserSchema;

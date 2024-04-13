@@ -27,10 +27,12 @@ class Server {
     this.routes();
 
     this.app.get("/*", (req, res) => {
-      res.sendFile(
-        path.join(__dirname, "..", "public", "index.html")
-        // path.join(__dirname, "../server", "public", "index.html")
-      );
+      res.sendFile("public/index.html", { root: __dirname });
+      // res.sendFile(
+      //   path.join(__dirname, "..", "public", "index.html")
+      //   // path.join(__dirname, "../server", "public", "index.html")
+
+      // );
     });
   }
 
